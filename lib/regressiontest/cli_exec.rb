@@ -33,6 +33,7 @@ module RegressionTest
       cmd = "diff #{fn2} #{fn1}"
       $stderr.print cmd+"\n"
       return true if Kernel.system(cmd) == true
+      $stderr.print "If it is correct, execute \"cp #{fn1} {fn2}\", and run again"
       false
     end
   end
