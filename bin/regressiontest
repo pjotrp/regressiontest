@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 #
-# BioRuby bio-regressiontest Plugin BioRegressiontest
+# BioRuby regressiontest Plugin BioRegressiontest
 # Author:: Pjotr Prins
 # Copyright:: 2012
 
-USAGE = "Describe bio-regressiontest"
+USAGE = "Describe regressiontest"
 
 gempath = File.dirname(File.dirname(__FILE__))
 $: << File.join(gempath,'lib')
@@ -13,18 +13,18 @@ VERSION_FILENAME=File.join(gempath,'VERSION')
 version = File.new(VERSION_FILENAME).read.chomp
 
 # print banner
-print "bio-regressiontest #{version} by Pjotr Prins 2012\n"
+print "regressiontest #{version} by Pjotr Prins 2012\n"
 
 if ARGV.size == 0
   print USAGE
 end
 
-require 'bio-regressiontest'
+require 'regressiontest'
 require 'optparse'
 
 # Uncomment when using the bio-logger 
 # require 'bio-logger'
-# log = Bio::Log::LoggerPlus.new 'bio-regressiontest'
+# log = Bio::Log::LoggerPlus.new 'regressiontest'
 # log.outputters = Bio::Log::Outputter.stderr 
 # Bio::Log::CLI.logger('stderr')
 # Bio::Log::CLI.trace('info')
@@ -76,8 +76,8 @@ begin
   opts.parse!(ARGV)
 
   # Uncomment when using the bio-logger
-  # Bio::Log::CLI.configure('bio-regressiontest')
-  # logger = Bio::Log::LoggerPlus['bio-regressiontest']
+  # Bio::Log::CLI.configure('regressiontest')
+  # logger = Bio::Log::LoggerPlus['regressiontest']
   # Log parsed options and remaining arguments in ARGV
   # logger.info [options, ARGV]
 

@@ -1,6 +1,6 @@
-# bio-regressiontest
+# regressiontest
 
-[![Build Status](https://secure.travis-ci.org/pjotrp/bioruby-regressiontest.png)](http://travis-ci.org/pjotrp/bioruby-regressiontest)
+[![Build Status](https://secure.travis-ci.org/pjotrp/regressiontest.png)](http://travis-ci.org/pjotrp/regressiontest)
 
 Full description goes here
 
@@ -9,13 +9,13 @@ Note: this software is under active development!
 ## Installation
 
 ```sh
-    gem install bio-regressiontest
+    gem install regressiontest
 ```
 
 ## Usage
 
 ```ruby
-    require 'bio-regressiontest'
+    require 'regressiontest'
 ```
 
 The API doc is online. For more code examples see the test files in
@@ -26,7 +26,7 @@ the source tree.
 Information on the source tree, documentation, examples, issues and
 how to contribute, see
 
-  http://github.com/pjotrp/bioruby-regressiontest
+  http://github.com/pjotrp/regressiontest
 
 The BioRuby community is on IRC server: irc.freenode.org, channel: #bioruby.
 
@@ -39,7 +39,7 @@ If you use this software, please cite one of
 
 ## Biogems.info
 
-This Biogem is published at [#bio-regressiontest](http://biogems.info/index.html)
+This Biogem is published at [#regressiontest](http://biogems.info/index.html)
 
 ## Copyright
 
