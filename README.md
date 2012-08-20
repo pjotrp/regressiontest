@@ -32,7 +32,12 @@ Simple usage
 ```
 
 by default a .ref and a .new file are created in the 
-./test/data/regression directory.
+./test/data/regression directory. A filter can be added to ignore
+lines of output (as a regex), e.g.
+
+```ruby
+  RegressionTest::CliExec::exec("ls","-l",:ignore: 'INFO bio-gff3: Memory used')
+```
 
 The API doc is online. For more code examples see the test files in
 the source tree.
