@@ -2,9 +2,16 @@
 
 [![Build Status](https://secure.travis-ci.org/pjotrp/regressiontest.png)](http://travis-ci.org/pjotrp/regressiontest)
 
-Full description goes here
+regressiontest, at this point, is a simple module for calling programs
+on the command line, capturing output and comparing output against an
+existing reference file. The idea is to capture changes in output at a
+very global level, perhaps with different input files and command line
+options.
 
-Note: this software is under active development!
+Note that JRuby on Travis does not allow invoking the command line,
+but MRI and Rubinius work fine.
+
+Note: this software is under active development, your mileage may vary!
 
 ## Installation
 
@@ -17,6 +24,15 @@ Note: this software is under active development!
 ```ruby
     require 'regressiontest'
 ```
+
+Simple usage
+
+```ruby
+  RegressionTest::CliExec::exec("ls","-l").should be_true
+```
+
+by default a .ref and a .new file are created in the 
+./test/data/regression directory.
 
 The API doc is online. For more code examples see the test files in
 the source tree.
