@@ -30,11 +30,15 @@ module RegressionTest
     end
 
     def CliExec::compare_files fn1, fn2
-      cmd = "diff #{fn2} #{fn1}"
-      $stderr.print cmd+"\n"
-      return true if Kernel.system(cmd) == true
-      $stderr.print "If it is correct, execute \"cp #{fn1} #{fn2}\", and run again"
-      false
+      if not File.exist?(fn2)
+        Kernel.system("cp -v #{fn1} #{fn2}")
+        true
+      else
+        cmd = "diff #{fn2} #{fn1}"
+        $stderr.print cmd+"\n"
+        return true if Kernel.system(cmd) == true
+        $stderr.print "If it is correct, execute \"cp #{fn1} #{fn2}\", and run again"
+        false
     end
   end
 
