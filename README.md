@@ -41,7 +41,7 @@ lines of output (as a regex), e.g.
 
 The API doc is online. For more code examples see the test files in
 the source tree. A good example can be found in the
-[bio-table](https://github.com/pjotrp/bioruby-table) which uses
+[bio-table](https://github.com/pjotrp/bioruby-table) project which uses
 cucumber features combined with the regressiontest gem. The features
 look like
 
@@ -99,5 +99,5 @@ This Biogem is published at [#regressiontest](http://biogems.info/index.html)
 
 ## Copyright
 
-Copyright (c) 2012 Pjotr Prins. See LICENSE.txt for further details.
+Copyright (c) 2012-2014 Pjotr Prins. See LICENSE.txt for further details.
 

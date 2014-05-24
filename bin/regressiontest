@@ -2,7 +2,6 @@
 #
 # BioRuby regressiontest Plugin BioRegressiontest
 # Author:: Pjotr Prins
-# Copyright:: 2012
 
 USAGE = "Describe regressiontest"
 
@@ -13,7 +12,7 @@ VERSION_FILENAME=File.join(gempath,'VERSION')
 version = File.new(VERSION_FILENAME).read.chomp
 
 # print banner
-print "regressiontest #{version} by Pjotr Prins 2012\n"
+print "regressiontest #{version} by Pjotr Prins\n"
 
 if ARGV.size == 0
   print USAGE
