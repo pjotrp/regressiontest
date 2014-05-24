@@ -40,7 +40,42 @@ lines of output (as a regex), e.g.
 ```
 
 The API doc is online. For more code examples see the test files in
-the source tree.
+the source tree. A good example can be found in the
+[bio-table](https://github.com/pjotrp/bioruby-table) which uses
+cucumber features combined with the regressiontest gem. The features
+look like
+
+```ruby
+Scenario: Test the numerical filter by indexed column values
+  Given I have input file(s) named "test/data/input/table1.csv"
+  When I execute "./bin/bio-table --num-filter 'values[3] > 0.05'"
+  Then I expect the named output to match "table1-0_05"
+```
+
+and are listed in
+[cli.feature](https://github.com/pjotrp/bioruby-table/blob/master/features/cli.feature)
+and the matching steps are simply
+
+```ruby
+Given /^I have input file\(s\) named "(.*?)"$/ do |arg1|
+  @filenames = arg1.split(/,/)
+end
+
+When /^I execute "(.*?)"$/ do |arg1|
+  @cmd = arg1 + ' ' + @filenames.join(' ')
+end
+
+Then /^I expect the named output to match "(.*?)"$/ do |arg1|
+  RegressionTest::CliExec::exec(@cmd,arg1).should be_true
+end
+```
+
+and listed in
+[cli.rb](https://github.com/pjotrp/bioruby-table/blob/master/features/step_definitions/cli-feature.rb).
+The automatically generated regression output files are checked into
+git in the
+[test/data/regression](https://github.com/pjotrp/bioruby-table/tree/master/test/data/regression)
+directory and checked with 'bundle exec rake'.
         
 ## Project home page
 
