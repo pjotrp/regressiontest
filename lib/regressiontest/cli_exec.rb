@@ -15,9 +15,9 @@ module RegressionTest
     def CliExec::exec command, testname, options = {}
       # ---- Find .ref file
       fullname = DEFAULT_TESTDIR + "/" + testname 
-      basefn = if File.exist?(testname+".ref")
+      basefn = if File.exist?(testname+".ref") || File.exist?(testname+"-stderr.ref")
                 testname 
-              elsif fullname + ".ref"
+              elsif File.exist?(fullname + ".ref") || File.exist?(fullname+"-stderr.ref")
                 FileUtils.mkdir_p DEFAULT_TESTDIR
                 fullname
               else
