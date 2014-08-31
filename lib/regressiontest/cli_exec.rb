@@ -27,7 +27,7 @@ module RegressionTest
       std_err = FilePair.new(basefn + "-stderr.new", basefn + "-stderr.ref")
       files = [std_out,std_err]
       # ---- Create .new file
-      cmd = command + " > #{outfn}"
+      cmd = command + " > #{std_out.outfn} 2>#{std_err.outfn}"
       $stderr.print cmd,"\n"
       if Kernel.system(cmd) == false
         $stderr.print cmd," returned an error\n"
