@@ -10,6 +10,8 @@ module RegressionTest
   # You can add an :ignore regex option which ignores lines in the comparsion files 
   # matching a regex
   module CliExec
+    FilePair = Struct.new(:outfn,:reffn)
+
     def CliExec::exec command, testname, options = {}
       # ---- Find .ref file
       fullname = DEFAULT_TESTDIR + "/" + testname 
