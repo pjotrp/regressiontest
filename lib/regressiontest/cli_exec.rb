@@ -26,7 +26,10 @@ module RegressionTest
       # ---- Create .new file
       cmd = command + " > #{outfn}"
       $stderr.print cmd,"\n"
-      if Kernel.system(cmd) == false
+      zero_exit_status = true
+      zero_exit_status = false if options[:should_fail]
+      exec_ret = Kernel.system(cmd)
+      if exec_ret != zero_exit_status
         $stderr.print cmd," returned an error\n"
         return false 
       end
