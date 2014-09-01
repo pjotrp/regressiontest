@@ -43,6 +43,10 @@ module RegressionTest
         exec_ret = Kernel.system(cmd)
       end
       if exec_ret == false
+      zero_exit_status = true
+      zero_exit_status = false if options[:should_fail]
+      exec_ret = Kernel.system(cmd)
+      if exec_ret != zero_exit_status
         $stderr.print cmd," returned an error\n"
         return false 
       end
