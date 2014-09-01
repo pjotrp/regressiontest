@@ -6,11 +6,10 @@ source "http://rubygems.org"
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem "shoulda", ">= 0"
-  gem "rdoc", "~> 3.12"
-  gem "cucumber", ">= 0"
+  gem "shoulda"
+  gem "cucumber"
   gem "jeweler", "~> 1.8.3"
-  gem "bundler", ">= 1.0.21"
-  gem "bio", ">= 1.4.2"
-  gem "rdoc", "~> 3.12"
+  gem "bundler"
+  gem "rspec"
+  gem "rdoc"
 end

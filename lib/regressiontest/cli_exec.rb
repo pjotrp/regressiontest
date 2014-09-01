@@ -7,7 +7,7 @@ module RegressionTest
   # Regression test runner compares output in ./test/data/regression (by default).
   # The convention is to have a file with names .ref (reference) and create .new
   #
-  # You can add an :ignore regex option which ignores lines in the comparsion files 
+  # You can add an :ignore regex option which ignores lines in the comparson files 
   # matching a regex
   module CliExec
     def CliExec::exec command, testname, options = {}
