@@ -26,7 +26,20 @@ module RegressionTest
       # ---- Create .new file
       cmd = command + " > #{outfn}"
       $stderr.print cmd,"\n"
-      if Kernel.system(cmd) == false
+      exec_ret = nil
+      if options[:timeout] && options[:timeout] > 0
+        Timeout.timeout(options[:timeout]) do
+          begin
+            exec_ret = Kernel.system(cmd)
+          rescue Timeout::Error
+            $stderr.print cmd, " failed to finish in under #{options[:timeout]}\n"
+            return false
+          end
+        end
+      else
+        exec_ret = Kernel.system(cmd)
+      end
+      if exec_ret == false
         $stderr.print cmd," returned an error\n"
         return false 
       end
