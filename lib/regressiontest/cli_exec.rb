@@ -9,6 +9,10 @@ module RegressionTest
   #
   # You can add an :ignore regex option which ignores lines in the comparson files 
   # matching a regex
+  #
+  # :timeout sets the time out for calling a system command
+  #
+  # :should_fail expects the system command to return a non-zero
   module CliExec
     FilePair = Struct.new(:outfn,:reffn)
 
@@ -42,12 +46,13 @@ module RegressionTest
       else
         exec_ret = Kernel.system(cmd)
       end
-      if exec_ret == false
-      zero_exit_status = true
-      zero_exit_status = false if options[:should_fail]
-      exec_ret = Kernel.system(cmd)
-      if exec_ret != zero_exit_status
+      expect_fail = (options[:should_fail] != nil)
+      if !expect_fail and exec_ret==0
         $stderr.print cmd," returned an error\n"
+        return false 
+      end
+      if expect_fail and exec_ret
+        $stderr.print cmd," did not return an error\n"
         return false 
       end
       if options[:ignore]

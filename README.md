@@ -39,6 +39,8 @@ lines of output (as a regex), e.g.
   RegressionTest::CliExec::exec("ls","-l",ignore: 'INFO bio-gff3: Memory used')
 ```
 
+Other options are :timeout and :should_fail.
+
 The API doc is online. For more code examples see the test files in
 the source tree. A good example can be found in the
 [bio-table](https://github.com/pjotrp/bioruby-table) project which uses
