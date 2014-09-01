@@ -8,7 +8,7 @@ source "http://rubygems.org"
 group :development do
   gem "shoulda"
   gem "cucumber"
-  gem "jeweler", "~> 1.8.3"
+  gem "jeweler", "~> 2.0.1"
   gem "bundler"
   gem "rspec"
   gem "rdoc"
