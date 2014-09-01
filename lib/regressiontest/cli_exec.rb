@@ -10,42 +10,64 @@ module RegressionTest
   # You can add an :ignore regex option which ignores lines in the comparson files 
   # matching a regex
   module CliExec
+    FilePair = Struct.new(:outfn,:reffn)
+
     def CliExec::exec command, testname, options = {}
       # ---- Find .ref file
       fullname = DEFAULT_TESTDIR + "/" + testname 
-      basefn = if File.exist?(testname+".ref")
+      basefn = if File.exist?(testname+".ref") || File.exist?(testname+"-stderr.ref")
                 testname 
-              elsif fullname + ".ref"
+              elsif File.exist?(fullname + ".ref") || File.exist?(fullname+"-stderr.ref")
                 FileUtils.mkdir_p DEFAULT_TESTDIR
                 fullname
               else
                 raise "Can not find reference file for #{testname} - expected #{fullname}.ref"
               end
-      outfn = basefn + ".new"
-      reffn = basefn + ".ref"
+      std_out = FilePair.new(basefn + ".new", basefn + ".ref")
+      std_err = FilePair.new(basefn + "-stderr.new", basefn + "-stderr.ref")
+      files = [std_out,std_err]
       # ---- Create .new file
-      cmd = command + " > #{outfn}"
+      cmd = command + " > #{std_out.outfn} 2>#{std_err.outfn}"
       $stderr.print cmd,"\n"
-      if Kernel.system(cmd) == false
+      exec_ret = nil
+      if options[:timeout] && options[:timeout] > 0
+        Timeout.timeout(options[:timeout]) do
+          begin
+            exec_ret = Kernel.system(cmd)
+          rescue Timeout::Error
+            $stderr.print cmd, " failed to finish in under #{options[:timeout]}\n"
+            return false
+          end
+        end
+      else
+        exec_ret = Kernel.system(cmd)
+      end
+      if exec_ret == false
         $stderr.print cmd," returned an error\n"
         return false 
       end
       if options[:ignore]
         regex = options[:ignore]
-        outfn1 = outfn + ".1"
-        FileUtils.mv(outfn,outfn1)
-        buf = []
-        f1 = File.open(outfn1)
-        f = File.open(outfn,"w")
-        f1.each_line do | line |
-          f.print(line) if line !~ /#{regex}/
+        files.each do |f|
+          outfn = f.outfn
+          outfn1 = outfn + ".1"
+          FileUtils.mv(outfn,outfn1)
+          f1 = File.open(outfn1)
+          f2 = File.open(outfn,"w")
+          f1.each_line do | line |
+            f2.print(line) if line !~ /#{regex}/
+          end
+          f1.close
+          f2.close
+          FileUtils::rm(outfn1)
         end
-        f1.close
-        f.close
-        FileUtils::rm(outfn1)
       end
       # ---- Compare the two files
-      compare_files(outfn,reffn,options[:ignore])
+      files.each do |f|
+        next unless File.exist?(f.reffn)
+        return false unless compare_files(f.outfn,f.reffn,options[:ignore])
+      end
+      return true
     end
 
     def CliExec::compare_files fn1, fn2, ignore = nil
